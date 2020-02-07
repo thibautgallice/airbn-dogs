@@ -1,6 +1,6 @@
 # README
 
-## :wrench: Instal
+## Install
 
 `git clone git@github.com:thibautgallice/airbn-dogs.git`
 
