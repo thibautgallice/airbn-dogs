@@ -5,34 +5,35 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-
 require 'faker'
+Dog.destroy_all
+Dogsitter.destroy_all
+Stroll.destroy_all
+City.destroy_all
 
-# Créer des Cities
+c = 0
+10.times do
+  City.create(name:Faker::Address.city)
+  c += 1
+  puts "City #{c} created !"
+end
+d = 0
+45.times do
+  Dog.create(name:Faker::Creature::Dog.name, city: City.all.sample)
+  d += 1
+  puts "Dog #{d} created !"
+end
+
+ds = 0
 20.times do
-  city = City.create!(city_name: Faker::Address.city)
-  puts "City : #{city.city_name} created"
+  Dogsitter.create(first_name:Faker::Name.first_name, last_name:Faker::Name.last_name, city: City.all.sample)
+  ds += 1
+  puts "Dogsitter #{ds} created !"
 end
 
-# Créer des Dogsitters
-50.times do
-  dogsitter = Dogsitter.create!(first_name: Faker::Name.first_name, city:City.all.sample)
-  puts "Dogsitter : #{dogsitter.first_name} created"
-end
-
-# Créer des Dogs
-200.times do
-  dog = Dog.create!(name: Faker::Name.first_name,city:City.all.sample,prefered_snack:Faker::Cannabis.cannabinoid)
-  puts "Dog : #{dog.name} created"
-end
-
-# Créer des Strolls
-n = 0
-200.times do
-  random_ds = Dogsitter.all.sample
-  random_dog = Dog.all.sample
-  stroll = Stroll.create!(dogsitter:random_ds,dog:random_dog)
-  n = n+1
-  puts "Stroll #{n} created"
+s = 0
+140.times do
+  Stroll.create(dogsitter: Dogsitter.all.sample, dog: Dog.all.sample)
+  s += 1
+  puts "Stroll #{s} created !"
 end
